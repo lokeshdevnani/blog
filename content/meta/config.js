@@ -4,7 +4,7 @@ module.exports = {
   siteTitle: "Lokesh Devnani | Software Engineer", // <title>
   shortSiteTitle: "Engineering for elegance & scale", // <title> ending for posts and pages
   siteDescription: "Software Artist, Movement Engineer, Inquisitive Student",
-  siteUrl: "https://lokesh.me",
+  siteUrl: "https://blog.lokeshd.com",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "en",
@@ -16,7 +16,7 @@ module.exports = {
   infoTitleNote: "personal blog",
   // manifest.json
   manifestName: "Blog - Lokesh Devnani",
-  manifestShortName: "LokeshD", // max 12 characters
+  manifestShortName: "Lokesh's Blog", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.background,
   manifestThemeColor: colors.background,

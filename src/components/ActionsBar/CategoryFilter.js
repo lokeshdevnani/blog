@@ -85,7 +85,7 @@ class CategoryFilter extends React.Component {
                 <Paper>
                   <MenuList role="menu">
                     <MenuItem key="all" onClick={this.handleFiltering}>
-                      <CategoryIcon /> All Posts
+                      all posts
                     </MenuItem>
                     {_.uniq(categories).map(category => (
                       <MenuItem key={category} onClick={this.handleFiltering}>
