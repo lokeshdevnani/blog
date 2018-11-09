@@ -31,9 +31,9 @@ const Hit = props => {
   const { classes, hit } = props;
 
   return (
-    <Link to={hit.fields.slug} className={classes.link}>
-      {hit.frontmatter.title}
-      {hit.frontmatter.subTitle && <span>{hit.frontmatter.subTitle}</span>}
+    <Link to={hit.slug} className={classes.link}>
+      {hit.title}
+      {hit.subTitle && <span>{hit.subTitle}</span>}
     </Link>
   );
 };
