@@ -108,7 +108,7 @@ class TopMenu extends React.Component {
                           this.handleClose();
                         }}
                       >
-                        Contact
+                        /contact
                       </MenuItem>
                     </Link>
                   </MenuList>

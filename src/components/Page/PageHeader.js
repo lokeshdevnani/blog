@@ -6,7 +6,7 @@ import AlgoliaIcon from "!svg-react-loader!../../images/svg-icons/algolia-full.s
 
 const styles = theme => ({
   header: {
-    margin: "0 0 3em",
+    margin: "0 0 1.5em",
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
