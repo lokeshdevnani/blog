@@ -20,6 +20,4 @@ There are a lot of version control systems out there which go by the names git, 
 
 > Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-By the way, you can learn git from a variety of sources such as official git website, learn git. Plus, I have written a few articles on Git in case you wanna check out.
-
-[Git- Getting Started](http://blog.lokeshd.com/git-learn)
+By the way, you can learn git from a variety of sources such as [official git website](https://git-scm.com/docs/gittutorial), [learn git](https://try.github.io/).

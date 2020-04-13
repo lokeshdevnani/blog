@@ -4,7 +4,7 @@ module.exports = {
   siteTitle: "Lokesh Devnani | Software Engineer", // <title>
   shortSiteTitle: "Engineering for elegance & scale", // <title> ending for posts and pages
   siteDescription: "Software Artist, Movement Engineer, Inquisitive Student",
-  siteUrl: "https://blog.lokeshd.com",
+  siteUrl: "https://lokesh.me",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "en",
@@ -36,6 +36,7 @@ module.exports = {
     { url: 'https://www.instagram.com/lokeshdevnani/', name: 'Instagram'},
     { url: 'https://facebook.com/devnani.lokesh', name: 'Facebook'},
     { url: 'https://www.linkedin.com/in/lokeshdevnani/', name: 'LinkedIn'},
-    { url: 'https://twitter.com/lokeshdevnani', name: 'Twitter'}
+    { url: 'https://twitter.com/lokeshdevnani', name: 'Twitter'},
+    { url: 'https://soundcloud.com/lokeshdevnani', name: 'SoundCloud'}
   ]
 };
