@@ -26,26 +26,26 @@ Note that these statistics reset every time the server restarts. So make sure th
 SELECT *  
 FROM (  
       SELECT objects.name AS Table_name,  
-    indexes.name AS Index_name,  
-    SUM(dm_db_index_usage_stats.user_seeks)   as user_seeks,  
-    SUM(dm_db_index_usage_stats.user_scans)   as user_scans,  
-    SUM(dm_db_index_usage_stats.user_lookups) as user_lookups,  
-    SUM(dm_db_index_usage_stats.user_updates) as user_updates  
+      indexes.name AS Index_name,  
+      SUM(dm_db_index_usage_stats.user_seeks)   as user_seeks,  
+      SUM(dm_db_index_usage_stats.user_scans)   as user_scans,  
+      SUM(dm_db_index_usage_stats.user_lookups) as user_lookups,  
+      SUM(dm_db_index_usage_stats.user_updates) as user_updates  
       FROM sys.dm_db_index_usage_stats  
       INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID  
-    INNER JOIN sys.indexes ON indexes.index_id = dm_db_index_usage_stats.index_id AND  
-      dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
-    WHERE indexes.is_primary_key = 0 --This line excludes primary key constarint  
-      AND indexes.is_unique = 0 --This line excludes unique key constarint  
-      AND indexes.type = 2  
-    GROUP BY indexes.name, objects.name  
-    HAVING SUM(dm_db_index_usage_stats.user_seeks) + SUM(dm_db_index_usage_stats.user_scans) +  
+      INNER JOIN sys.indexes ON indexes.index_id = dm_db_index_usage_stats.index_id AND  
+        dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
+      WHERE indexes.is_primary_key = 0 --This line excludes primary key constarint  
+        AND indexes.is_unique = 0 --This line excludes unique key constarint  
+        AND indexes.type = 2  
+      GROUP BY indexes.name, objects.name  
+      HAVING SUM(dm_db_index_usage_stats.user_seeks) + SUM(dm_db_index_usage_stats.user_scans) +  
              SUM(dm_db_index_usage_stats.user_lookups) <= 0  
-  ) AS index_op_stats INNER JOIN (  
+) AS index_op_stats INNER JOIN (  
       SELECT ix.[name] AS [Index name], SUM(sz.[used_page_count]) * 8 AS [Index size (KB)]  
       FROM sys.dm_db_partition_stats AS sz  
       INNER JOIN sys.indexes AS ix ON sz.[object_id] = ix.[object_id] AND sz.[index_id] = ix.[index_id]  
-    GROUP BY ix.[name]  
+      GROUP BY ix.[name]  
   ) AS index_size_stats ON index_op_stats.Index_name = index_size_stats.[Index name]  
 WHERE user_updates > 0
 ```
@@ -65,9 +65,9 @@ So, in such setups, we would:
 
 SELECT indexes.name AS Index_name
 FROM sys.dm_db_index_usage_stats  
-         INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID  
+  INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID  
   INNER JOIN sys.indexes ON indexes.index_id = dm_db_index_usage_stats.index_id AND  
-  dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
+    dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
 WHERE indexes.is_primary_key = 0 --This line excludes primary key constarint  
   AND indexes.is_unique = 0 --This line excludes unique key constarint  
   AND indexes.type = 2  
@@ -84,29 +84,29 @@ Copy the list of indexes and add it as a `NOT IN` clause for the second query.
 
 SELECT *  
 FROM (  
-         SELECT objects.name AS Table_name,  
-  indexes.name AS Index_name,  
-  SUM(dm_db_index_usage_stats.user_seeks)   as user_seeks,  
-  SUM(dm_db_index_usage_stats.user_scans)   as user_scans,  
-  SUM(dm_db_index_usage_stats.user_lookups) as user_lookups,  
-  SUM(dm_db_index_usage_stats.user_updates) as user_updates  
-         FROM sys.dm_db_index_usage_stats  
-                  INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID  
+  SELECT objects.name AS Table_name,  
+    indexes.name AS Index_name,  
+    SUM(dm_db_index_usage_stats.user_seeks)   as user_seeks,  
+    SUM(dm_db_index_usage_stats.user_scans)   as user_scans,  
+    SUM(dm_db_index_usage_stats.user_lookups) as user_lookups,  
+    SUM(dm_db_index_usage_stats.user_updates) as user_updates  
+  FROM sys.dm_db_index_usage_stats  
+  INNER JOIN sys.objects ON dm_db_index_usage_stats.OBJECT_ID = objects.OBJECT_ID  
   INNER JOIN sys.indexes ON indexes.index_id = dm_db_index_usage_stats.index_id AND  
-  dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
+    dm_db_index_usage_stats.OBJECT_ID = indexes.OBJECT_ID  
   WHERE indexes.is_primary_key = 0 --This line excludes primary key constarint  
-  AND indexes.is_unique = 0 --This line excludes unique key constarint  
-  AND indexes.type = 2  
+    AND indexes.is_unique = 0 --This line excludes unique key constarint  
+    AND indexes.type = 2  
   GROUP BY indexes.name, objects.name  
   HAVING SUM(dm_db_index_usage_stats.user_seeks) + SUM(dm_db_index_usage_stats.user_scans) +  
                 SUM(dm_db_index_usage_stats.user_lookups) <= 0  
-  AND SUM(dm_db_index_usage_stats.user_updates) <> 0  
-  ) AS index_op_stats  
-         INNER JOIN (  
+    AND SUM(dm_db_index_usage_stats.user_updates) <> 0  
+) AS index_op_stats  
+INNER JOIN (  
     SELECT ix.[name] AS [Index name], SUM(sz.[used_page_count]) * 8 AS [Index size (KB)]  
     FROM sys.dm_db_partition_stats AS sz  
-             INNER JOIN sys.indexes AS ix ON sz.[object_id] = ix.[object_id] AND sz.[index_id] = ix.[index_id]  
-  GROUP BY ix.[name]  
+    INNER JOIN sys.indexes AS ix ON sz.[object_id] = ix.[object_id] AND sz.[index_id] = ix.[index_id]  
+    GROUP BY ix.[name]  
 ) AS index_size_stats ON index_op_stats.Index_name = index_size_stats.[Index name]  
 WHERE Index_name NOT IN (
   -- Add list of indexes from slave here
